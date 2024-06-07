@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: load-testing-app
-          image: samforger025/webapp-cpu-stress:latest
+          image: samforger025/webapp-cpu-stress:v1
           resources:
             requests:
               cpu: 500m
