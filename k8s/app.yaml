@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-testing-app
+spec:
+  selector:
+    matchLabels:
+      run: load-testing-app
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        run: load-testing-app
+    spec:
+      containers:
+        - name: load-testing-app
+          image: samforger025/webapp-cpu-stress:latest
+          resources:
+            requests:
+              cpu: 500m
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: load-testing-app
+  labels:
+    run: load-testing-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    run: load-testing-app
